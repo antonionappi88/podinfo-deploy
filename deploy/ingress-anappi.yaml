@@ -15,7 +15,7 @@ spec:
       - path: /podinfo
         backend:
           serviceName: podinfo-lb
-          servicePort: 9898
+          servicePort: 80
       - path: /metrics-demo
         backend:
           serviceName: metrics-demo
