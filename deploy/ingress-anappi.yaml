@@ -1,22 +1,39 @@
 apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: dev
-  namespace: dev
-spec:
-  #tls:
-  #- hosts:
-  #  - training-user-46.training.weave.works
-  #  secretName: ingress-certificate
-  rules:
-  - host: training-user-46.training.weave.works
-    http:
-      paths: 
-      - path: /podinfo
-        backend:
-          serviceName: podinfo-lb
-          servicePort: 80
-      - path: /metrics-demo
-        backend:
-          serviceName: metrics-demo
-          servicePort: 3000
+  kind: Ingress
+  metadata:
+    annotations:
+      certmanager.k8s.io/acme-challenge-type: http01
+      certmanager.k8s.io/issuer: letsencrypt-prod
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"extensions/v1beta1","kind":"Ingress","metadata":{"annotations":{"certmanager.k8s.io/acme-challenge-type":"http01","certmanager.k8s.io/issuer":"letsencrypt-prod","kubernetes.io/ingress.class":"traefik"},"name":"ide","namespace":"ide"},"spec":{"rules":[{"host":"training-user-46.training.weave.works","http":{"paths":[{"backend":{"serviceName":"ide","servicePort":"http"},"path":"/"}, {"backend":{"serviceName":"podinfo-lb","servicePort":"80"},"path":"/"]}}],"tls":[{"hosts":["training-user-46.training.weave.works"],"secretName":"ingress-certificate"}]}}
+      kubernetes.io/ingress.class: traefik
+    creationTimestamp: 2019-05-18T17:41:13Z
+    generation: 1
+    name: ide
+    namespace: ide
+    resourceVersion: "669"
+    selfLink: /apis/extensions/v1beta1/namespaces/ide/ingresses/ide
+    uid: 217e3e0f-7994-11e9-b294-42010a9a0159
+  spec:
+    rules:
+    - host: training-user-46.training.weave.works
+      http:
+        paths:
+        - backend:
+            serviceName: ide
+            servicePort: http
+          path: /
+        - path: /podinfo
+          backend:
+            serviceName: podinfo-lb
+            servicePort: 80
+        - path: /metrics-demo
+          backend:
+            serviceName: metrics-demo
+            servicePort: 3000
+    tls:
+    - hosts:
+      - training-user-46.training.weave.works
+      secretName: ingress-certificate
+  status:
+    loadBalancer: {}
