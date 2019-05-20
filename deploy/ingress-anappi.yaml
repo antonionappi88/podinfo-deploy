@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ide
+  namespace: ide
+spec:
+  tls:
+  - hosts:
+    - training-user-46.training.weave.works
+    secretName: ingress-certificate
+  rules:
+  - host: training-user-46.training.weave.works
+    http:
+      paths: 
+      - path: /
+        backend:
+          serviceName: ide
+          servicePort: 80
+      - path: /podinfo
+        backend:
+          serviceName: podinfo
+          servicePort: 9898
+      - path: /metrics-demo
+        backend:
+          serviceName: metrics-demo
+          servicePort: 3000
