@@ -13,8 +13,6 @@ spec:
     metadata:
       labels:
         app: metrics-demo
-      annotations:
-        prometheus.io/scrape: 'true'
     spec:
       containers:
       - name: metrics-demo
