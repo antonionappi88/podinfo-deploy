@@ -18,6 +18,6 @@ spec:
     spec:
       containers:
       - name: metrics-demo
-        image: https://quay.io/repository/brice/metrics-demo
+        image: quay.io/repository/brice/metrics-demo
         ports:
         - containerPort: 3000
