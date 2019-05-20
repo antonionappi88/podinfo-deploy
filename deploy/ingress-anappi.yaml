@@ -4,10 +4,10 @@ metadata:
   name: dev
   namespace: dev
 spec:
-  tls:
-  - hosts:
-    - training-user-46.training.weave.works
-    secretName: ingress-certificate
+  #tls:
+  #- hosts:
+  #  - training-user-46.training.weave.works
+  #  secretName: ingress-certificate
   rules:
   - host: training-user-46.training.weave.works
     http:
